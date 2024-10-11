@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import { Home } from './Pages/Home'
+import { GameDetails } from './Pages/GameDetails';
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
 
 function App() {
 
@@ -63,9 +65,15 @@ function App() {
   }
 
   return (
-    
-      <Home games={games} postGame={postGame} deleteGame={deleteHandler}>
-    </Home>
+    <Router>
+      <div className='app'>
+        <Routes>
+          <Route path="/" element={<Home games={games} postGame={postGame} deleteGame={deleteHandler}> </Home>} />
+          <Route path="/games/:id" element={<GameDetails />}/>
+        </Routes>
+      </div>
+    </Router>
+      
   )
 }
 
