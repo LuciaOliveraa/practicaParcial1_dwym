@@ -1,16 +1,19 @@
 import { React, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import "./GameDetails.css"
+import { Button } from "../../Components/Button";
 
 export function GameDetails() {
 
+    // Getting game details
     const { id } = useParams();
 
-    const [gameDetails, setGameDetails] = useState({
+    const [gameDetails, setGameDetails] = useState([{
         title: "test",
         description: "description of the test",
         players: 4,
         categories: "categories"
-    });
+    }]);
 
     async function fetchGame() {
         try {
@@ -18,7 +21,7 @@ export function GameDetails() {
         const response = await fetch(url, { method: "GET" });
         const data = await response.json(); // extract JSON from response
         setGameDetails(data);
-        console.log(data);
+        console.log("hola", data);
         } catch (error) {
         console.log("Error fetching data: ", error);
         }
@@ -28,16 +31,22 @@ export function GameDetails() {
         fetchGame();
     }, [id]);
 
-    function ola() {
-        console.log(gameDetails);
+    const game = gameDetails[0];
+
+    // Going back /home
+    const navigate = useNavigate();
+
+    const backHome = () => {
+        navigate("/");
     }
 
     return (
-        <div>
-            <h2> {gameDetails.title} </h2>
-            <span> {gameDetails.description} </span>
-            <span onClick={ola}> Players: {gameDetails.playersQuantity} </span>
-            <span> Categories: {gameDetails.categories} </span>
+        <div className="div-game-details">
+            <Button className={"home-button"} label={"< Home"} onClick={backHome} />
+            <h2 className="title is-3"> {game.title} </h2>
+            <span> {game.description} </span>
+            <span> Players: {game.players} </span>
+            <span> Categories: {game.categories} </span>
         </div>
     );
 }
