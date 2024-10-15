@@ -51,24 +51,17 @@ function App() {
             "Content-Type":"application/json"
           },
         });
-        console.log("entre a delete");
-        console.log(games);
-        console.log(id);
+        setGames([...games.filter(game => game.id !== id)]);
       } catch (error) {
         console.log("Error fetching data: ", error);
       }
-  }
-
-  const deleteHandler = (id) => {
-    deleteGame(id);
-    setGames([...games.filter(game => game.id !== id)]);
   }
 
   return (
     <Router>
       <div className='app'>
         <Routes>
-          <Route path="/" element={<Home games={games} postGame={postGame} deleteGame={deleteHandler}> </Home>} />
+          <Route path="/" element={<Home games={games} postGame={postGame} deleteGame={deleteGame}> </Home>} />
           <Route path="/games/:id" element={<GameDetails />}/>
         </Routes>
       </div>

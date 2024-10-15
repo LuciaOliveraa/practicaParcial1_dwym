@@ -1,4 +1,4 @@
-.game-scroll {
+.gameScroll {
     display: flex;
     flex-direction: row;
     justify-content: space-around;

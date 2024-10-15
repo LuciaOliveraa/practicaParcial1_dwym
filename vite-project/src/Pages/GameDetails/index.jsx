@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import "./GameDetails.css"
 import { Button } from "../../Components/Button";
+import styles from "./GameDetails.module.css";
 
 export function GameDetails() {
 
@@ -39,9 +39,9 @@ export function GameDetails() {
     const backHome = () => {
         navigate("/");
     }
-
+    
     return (
-        <div className="div-game-details">
+        <div className={`${styles.divGameDetails} div-game-details`} >
             <Button className={"home-button"} label={"< Home"} onClick={backHome} />
             <h2 className="title is-3"> {game.title} </h2>
             <span> {game.description} </span>

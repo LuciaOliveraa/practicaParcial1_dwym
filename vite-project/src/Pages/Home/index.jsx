@@ -1,8 +1,9 @@
 import { React, useState, useEffect } from "react";
 import { Button } from "../../Components/Button";
 import { ModalCreateGame } from "../../Components/ModalCreateGame"
-import "./Home.css"
 import { GameScroller } from "../../Components/GameScroller";
+import styles from "./Home.module.css";
+import { SearchBar } from "../../Components/SearchBar";
 
 export function Home({ games, postGame, deleteGame }) {
 
@@ -17,16 +18,20 @@ export function Home({ games, postGame, deleteGame }) {
         setIsModalOpen(false);
     };
 
+    // Managing filtered games
+    const [filteredGames, setFilteredGames] = useState(games);
+
 
     return (
-        <div className="home">
+        <div className={`${styles.home}`}>
             {/* Header */}
             <h1 className="title is-1"> Colimpiadas </h1>
-            <div className="button-div">
+            <div className={`${styles.buttonDiv}`}>
+                <SearchBar className={styles.searchBar} data={games} setFilteredGames={setFilteredGames}></SearchBar>
                 <Button label={"Add game"} onClick={openModal} />
             </div>
 
-            <GameScroller games={games} deleteFunction={deleteGame} ></GameScroller>
+            <GameScroller games={filteredGames} deleteFunction={deleteGame} ></GameScroller>
 
             {/* Modal add game */}
             <ModalCreateGame isActive={isModalOpen} onClose={closeModal} postGame={postGame} > </ModalCreateGame>
